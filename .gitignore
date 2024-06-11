@@ -1,0 +1,7 @@
+*cache*
+*.o
+compile_flags.txt
+hidden/
+build/
+*amk*
+
