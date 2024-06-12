@@ -31,7 +31,6 @@ ObfsHider::ObfsHider(std::string path_str) : BasicHider{path_str} {
 
 void ObfsHider::hide() {
     using namespace std;
-    namespace bs64 = demarok::base64;
 
     stringstream newFileName;
     string fileName = path.filename();
@@ -42,9 +41,9 @@ void ObfsHider::hide() {
     newFileName
         << (path.has_parent_path() ? (path.parent_path().string().append("/")) : "")
         << '.'
-        << (bs64::encode(fileName.c_str(),
-                         fileName.length(),
-                         BS64Mode::URL_SAFE | BS64Mode::NO_PADDING));
+        << (base64::encode(fileName.c_str(),
+                           fileName.length(),
+                           BS64Mode::URL_SAFE | BS64Mode::NO_PADDING));
         // << this->mark;
 
     filesystem::path newPath{newFileName.str()};
@@ -61,7 +60,6 @@ void ObfsHider::hide() {
 
 void ObfsHider::unhide() {
     using namespace std;
-    namespace bs64 = demarok::base64;
 
     string fileName = path.filename();
 
@@ -75,7 +73,7 @@ void ObfsHider::unhide() {
 
     newFileName
         << (path.has_parent_path() ? (path.parent_path().string().append("/")) : "")
-        << bs64::decode(fileName, fileName.length(), BS64Mode::URL_SAFE);
+        << base64::decode(fileName, fileName.length(), BS64Mode::URL_SAFE);
 
     filesystem::path newPath{newFileName.str()};
 
