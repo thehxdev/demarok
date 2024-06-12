@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 
     demarok::hider::BasicHider *hider = nullptr;
     try {
-        hider = demarok::hider::chooseHider(std::string(argv[1]), argv[3]);
+        hider = demarok::hider::chooseHider(argv[1], argv[3]);
     } catch (std::runtime_error e) {
         std::cerr << e.what() << std::endl;
         return 1;
