@@ -1,14 +1,13 @@
-/**
- * Base64 implementation inspired by https://josefsson.org/base-encoding/
- */
-
 #include <string>
 #include <sstream>
-#include "types.hpp"
 #include "base64.hpp"
 
 
 #define BASE64_LENGTH(inlen) ((((inlen) + 2) / 3) * 4)
+
+
+typedef char byte;
+typedef unsigned char ubyte;
 
 const static std::string base64_chars{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
 const static std::string safe_base64_chars{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"};
@@ -19,15 +18,15 @@ size_t base64_char_idx(const std::string charset, char ch) {
     return charset.find(ch);
 }
 
-namespace demarok {
-
 static inline __attribute__((always_inline))
 ubyte to_ubyte(byte b) {
     return ((ubyte)b);
 }
 
 
-std::string base64::encode(const char *in, size_t inlen, int mode) {
+namespace base64 {
+
+std::string encode(const char *in, size_t inlen, int mode) {
     std::stringstream s;
     size_t outlen = 1 + BASE64_LENGTH(inlen);
     const char padd_char = (mode & BS64Mode::NO_PADDING) ? '\0' : '=';
@@ -73,7 +72,7 @@ std::string base64::encode(const char *in, size_t inlen, int mode) {
 }
 
 
-std::string base64::decode(std::string in, size_t inlen, int mode) {
+std::string decode(std::string in, size_t inlen, int mode) {
     size_t idx1, idx2, idx3, idx4;
     std::stringstream buff;
     const std::string charset = (mode & BS64Mode::URL_SAFE) ? safe_base64_chars : base64_chars;
@@ -105,4 +104,4 @@ std::string base64::decode(std::string in, size_t inlen, int mode) {
     return buff.str();
 }
 
-}// namespace demarok
+} // namespace base64

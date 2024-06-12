@@ -1,7 +1,6 @@
 #ifndef DEMAROK_BASE64_H
 #define DEMAROK_BASE64_H
 
-#include <vector>
 
 // encoding modes
 enum BS64Mode : int {
@@ -10,7 +9,7 @@ enum BS64Mode : int {
     NO_PADDING  =   (1<<2),
 };
 
-namespace demarok {
+
 namespace base64 {
 
 std::string encode(const char *in, size_t inlen, int mode);
@@ -18,6 +17,5 @@ std::string encode(const char *in, size_t inlen, int mode);
 std::string decode(std::string in, size_t inlen, int mode);
 
 } // namespace base64
-} // namespace demarok
 
 #endif // DEMAROK_BASE64_H
