@@ -11,7 +11,9 @@ namespace hider {
 
 class BasicHider {
 public:
+
     BasicHider(std::string path_str);
+    virtual ~BasicHider() {}
 
     virtual void hide() {}
 
@@ -27,6 +29,7 @@ class ObfsHider final : public BasicHider {
 public:
 
     ObfsHider(std::string path_str);
+    ~ObfsHider() {}
 
     void hide() override;
 

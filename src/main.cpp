@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 #include "hider.hpp"
 
 
@@ -7,14 +8,16 @@ void usage(const char *progname);
 
 
 int main(int argc, char **argv) {
+    using namespace demarok;
+
     if (argc != 4) {
         usage(argv[0]);
         return 1;
     }
 
-    demarok::hider::BasicHider *hider = nullptr;
+    std::unique_ptr<hider::BasicHider> hider;
     try {
-        hider = demarok::hider::chooseHider(argv[1], argv[3]);
+        hider = std::unique_ptr<hider::BasicHider>{hider::chooseHider(argv[1], argv[3])};
     } catch (std::runtime_error e) {
         std::cerr << e.what() << std::endl;
         return 1;
