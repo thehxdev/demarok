@@ -30,6 +30,7 @@ ObfsHider::ObfsHider(std::string path_str) : BasicHider{path_str} {
 }
 
 void ObfsHider::hide() {
+    using namespace base64;
     using namespace std;
 
     stringstream newFileName;
@@ -59,6 +60,7 @@ void ObfsHider::hide() {
 }
 
 void ObfsHider::unhide() {
+    using namespace base64;
     using namespace std;
 
     string fileName = path.filename();
